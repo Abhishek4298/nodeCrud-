@@ -8,7 +8,6 @@ function addUser(data) {
 	const parse = JSON.parse(rawdata);
 	let flag = true;
 	for (let i = 0; i < parse.length; i++) {
-
 		if( parse[i].emailid=== body.emailid ){
 			flag = false;
 		}
@@ -26,16 +25,14 @@ function addUser(data) {
 	 }
 }
 
- function deleteUser(data) {
+function deleteUser(data) {
 	 flag = 0;
-	 console.log("delete")
+	console.log("delete")
  	const body = JSON.parse(data);
- 	let rawdata = fs.readFileSync(db);
-	 const parse = JSON.parse(rawdata);
+ 				let rawdata = fs.readFileSync(db);
+	const parse = JSON.parse(rawdata);
 
-	 
  	for (let i = 0; i < parse.length; i++) {
-	
  		if (parse[i].id === body.id) {
 			 console.log(parse[i].id);
  			 parse.splice(i,1);
@@ -48,26 +45,30 @@ function addUser(data) {
  	  fs.writeFile(db, JSON.stringify(parse), function (err) {
  			if (err) throw err;
  		});
-
  		return 'Successfully removed user';
    }
  }
 
 function getUser(data)
 {
-	console.log("getUser");
-	
 	const body = JSON.parse(data);
  	let rawdata = fs.readFileSync(db);
 	const parse = JSON.parse(rawdata);
-	
+	let flag = true;
+	let data1;
+
 	for (let i = 0; i < parse.length; i++) {
-		
-		let ans;
 		if(body.id === parse[i].id){
-			 ans = parse[i];
+			data1 = parse[i];	
+			flag = true;
 		}
-		return(JSON.stringify(ans));
+	}
+	if(flag){		
+		return data1;
+ 		}
+	else
+	{
+		return "no value get";
 	}
 }
 
